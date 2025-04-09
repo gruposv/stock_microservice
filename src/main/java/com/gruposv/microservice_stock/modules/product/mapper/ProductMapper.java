@@ -1,7 +1,10 @@
 package com.gruposv.microservice_stock.modules.product.mapper;
 
 import com.gruposv.microservice_stock.modules.product.dto.ProductDTO;
+import com.gruposv.microservice_stock.modules.product.dto.ReturnProductDTO;
 import com.gruposv.microservice_stock.modules.product.entity.ProductEntity;
+
+import java.time.LocalDateTime;
 
 public class ProductMapper {
 
@@ -17,6 +20,7 @@ public class ProductMapper {
         productEntity.setName(dto.getName());
         productEntity.setDescription(dto.getDescription());
         productEntity.setNcmCode(dto.getNcmCode());
+        productEntity.setProductType(dto.getProductType());
         productEntity.setUnitOfMeasure(dto.getUnitOfMeasure());
         productEntity.setProductStatus(dto.getProductStatus());
         productEntity.setCreatedAt(dto.getCreatedAt());
@@ -37,6 +41,7 @@ public class ProductMapper {
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setNcmCode(product.getNcmCode());
+        productDTO.setProductType(product.getProductType());
         productDTO.setUnitOfMeasure(product.getUnitOfMeasure());
         productDTO.setProductStatus(product.getProductStatus());
         productDTO.setCreatedAt(product.getCreatedAt());
@@ -67,6 +72,10 @@ public class ProductMapper {
             productEntity.setNcmCode(dto.getNcmCode());
         }
 
+        if (dto.getProductType() != null) {
+            productEntity.setProductType(dto.getProductType());
+        }
+
         if (dto.getUnitOfMeasure() != null) {
             productEntity.setUnitOfMeasure(dto.getUnitOfMeasure());
         }
@@ -75,11 +84,24 @@ public class ProductMapper {
             productEntity.setProductStatus(dto.getProductStatus());
         }
 
-        if (dto.getUpdateAt() != null) {
-            productEntity.setUpdateAt(dto.getUpdateAt());
-        }
+        productEntity.setUpdateAt(LocalDateTime.now());
 
         return productEntity;
+    }
+
+    public static ReturnProductDTO returnDTO(ProductEntity product){
+        ReturnProductDTO returnProductDTO = new ReturnProductDTO();
+        returnProductDTO.setId(product.getId());
+        returnProductDTO.setSkuCode(product.getSkuCode());
+        returnProductDTO.setName(product.getName());
+        returnProductDTO.setDescription(product.getDescription());
+        returnProductDTO.setNcmCode(product.getNcmCode());
+        returnProductDTO.setProductType(ProductTypeMapper.toDTO(product.getProductType()));
+        returnProductDTO.setUnitOfMeasure(UnitOfMeasureMapper.toDTO(product.getUnitOfMeasure()));
+        returnProductDTO.setProductStatus(ProductStatusMapper.toDTO(product.getProductStatus()));
+        returnProductDTO.setCreatedAt(product.getCreatedAt());
+        returnProductDTO.setUpdateAt(product.getUpdateAt());
+        return returnProductDTO;
     }
 }
 

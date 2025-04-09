@@ -1,7 +1,10 @@
 package com.gruposv.microservice_stock.modules.product.dto;
 
 import com.gruposv.microservice_stock.modules.product.enums.ProductStatus;
+import com.gruposv.microservice_stock.modules.product.enums.ProductType;
 import com.gruposv.microservice_stock.modules.product.enums.UnitOfMeasure;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -9,14 +12,22 @@ public class ProductDTO {
 
     private Long id;
 
+    @NotEmpty(message = "O código do produto é obrigatório!")
     private String skuCode;
 
+    @NotEmpty(message = "O nome do produto é obrigatório!")
     private String name;
 
+    @NotEmpty(message = "O código do produto é obrigatório!")
     private String description;
 
+    @NotEmpty(message = "O código ncm é obrigatório")
     private String ncmCode;
 
+    @NotNull(message = "É necessário definir o tipo do produto.")
+    private ProductType productType;
+
+    @NotNull(message = "O campo 'Unidade de medida' é obrigatório.")
     private UnitOfMeasure unitOfMeasure;
 
     private ProductStatus productStatus;
@@ -28,12 +39,13 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String skuCode, String name, String description, String ncmCode, UnitOfMeasure unitOfMeasure, ProductStatus productStatus, LocalDateTime createdAt, LocalDateTime updateAt) {
+    public ProductDTO(Long id, String skuCode, String name, String description, String ncmCode, ProductType productType, UnitOfMeasure unitOfMeasure, ProductStatus productStatus, LocalDateTime createdAt, LocalDateTime updateAt) {
         this.id = id;
         this.skuCode = skuCode;
         this.name = name;
         this.description = description;
         this.ncmCode = ncmCode;
+        this.productType = productType;
         this.unitOfMeasure = unitOfMeasure;
         this.productStatus = productStatus;
         this.createdAt = createdAt;
@@ -78,6 +90,14 @@ public class ProductDTO {
 
     public void setNcmCode(String ncmCode) {
         this.ncmCode = ncmCode;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     public UnitOfMeasure getUnitOfMeasure() {

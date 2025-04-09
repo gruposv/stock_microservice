@@ -1,55 +1,32 @@
-package com.gruposv.microservice_stock.modules.product.entity;
-
-import com.gruposv.microservice_stock.modules.product.enums.ProductStatus;
-import com.gruposv.microservice_stock.modules.product.enums.ProductType;
-import com.gruposv.microservice_stock.modules.product.enums.UnitOfMeasure;
-import jakarta.persistence.*;
+package com.gruposv.microservice_stock.modules.product.dto;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "TB_PRODUCTS")
-public class ProductEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "column_id")
+public class ReturnProductDTO {
     private Long id;
 
-    @Column(name = "skuCode", length = 20, nullable = false, unique = true)
     private String skuCode;
 
-    @Column(name = "product_name", length = 125, nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "ncm_code")
     private String ncmCode;
 
-    @Column(name = "product_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ProductType productType;
+    private ProductTypeDTO productType;
 
-    @Column(name = "unit_of_measure", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UnitOfMeasure unitOfMeasure;
+    private UnitOfMeasureDTO unitOfMeasure;
 
-    @Column(name = "product_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ProductStatus productStatus;
+    private ProductStatusDTO productStatus;
 
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at")
     private LocalDateTime updateAt;
 
-    public ProductEntity() {
+    public ReturnProductDTO() {
     }
 
-    public ProductEntity(Long id, String skuCode, String name, String description, String ncmCode, ProductType productType, UnitOfMeasure unitOfMeasure, ProductStatus productStatus, LocalDateTime createdAt, LocalDateTime updateAt) {
+    public ReturnProductDTO(Long id, String skuCode, String name, String description, String ncmCode, ProductTypeDTO productType, UnitOfMeasureDTO unitOfMeasure, ProductStatusDTO productStatus, LocalDateTime createdAt, LocalDateTime updateAt) {
         this.id = id;
         this.skuCode = skuCode;
         this.name = name;
@@ -102,27 +79,27 @@ public class ProductEntity {
         this.ncmCode = ncmCode;
     }
 
-    public ProductType getProductType() {
+    public ProductTypeDTO getProductType() {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
+    public void setProductType(ProductTypeDTO productType) {
         this.productType = productType;
     }
 
-    public UnitOfMeasure getUnitOfMeasure() {
+    public UnitOfMeasureDTO getUnitOfMeasure() {
         return unitOfMeasure;
     }
 
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+    public void setUnitOfMeasure(UnitOfMeasureDTO unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public ProductStatus getProductStatus() {
+    public ProductStatusDTO getProductStatus() {
         return productStatus;
     }
 
-    public void setProductStatus(ProductStatus productStatus) {
+    public void setProductStatus(ProductStatusDTO productStatus) {
         this.productStatus = productStatus;
     }
 
