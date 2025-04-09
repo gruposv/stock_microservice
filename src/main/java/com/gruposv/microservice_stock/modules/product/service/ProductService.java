@@ -56,6 +56,10 @@ public class ProductService {
     }
 
     public ReturnProductDTO updateProduct(String skuCode, ProductDTO productDTO){
+        // Verificar se o SKU ou o nome é repetido
+        if(productDTO.getName() != null && this.productRepository.existsByName(productDTO.getName())) throw new DuplicateNameProductException("Nome do produto já existente na base de dados. Forneça um nome diferente.");
+        if(productDTO.getSkuCode() != null && this.productRepository.existsBySkuCode(productDTO.getSkuCode())) throw new DuplicateSkuCodeException("Código do produto já existente na base de dados. Forneça um código diferente.");
+
          ProductEntity productToUpdate = this.productRepository.findBySkuCode(skuCode).orElseThrow(() -> new ProductNotFoundException("O produto com o código " + skuCode + " Não foi encontrado."));
          ProductEntity productUpdated = this.productRepository.save(ProductMapper.toEntityUpdate(productDTO, productToUpdate));
          return ProductMapper.returnDTO(productUpdated);
